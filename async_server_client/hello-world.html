@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello World — Stylish</title>
+    <style>
+      :root {
+        --accent: #7c5cff;
+        --accent2: #22d3ee;
+        --text: #0b1020;
+        --bg: #f6f7fb;
+        --text-dark: #f2f3ff;
+        --bg-dark: #07091a;
+        --t: 260ms;
+        --r: 18px;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      .wrap {
+        position: relative;
+        width: min(560px, calc(100% - 32px));
+        padding: 24px 22px;
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(10px);
+        border-radius: var(--r);
+        box-shadow: 0 22px 80px rgba(10, 12, 30, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        transform: translateZ(0);
+      }
+
+      .wrap::before {
+        content: "";
+        position: absolute;
+        inset: -22px;
+        background: radial-gradient(120% 120% at 15% 10%, var(--accent), transparent 55%),
+                    radial-gradient(110% 110% at 85% 20%, var(--accent2), transparent 60%),
+                    radial-gradient(120% 120% at 70% 120%, rgba(124, 92, 255, 0.28), transparent 65%);
+        filter: blur(14px);
+        z-index: -1;
+        transition: background var(--t) ease;
+      }
+
+      .top {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(34px, 5vw, 46px);
+        font-weight: 760;
+        letter-spacing: -0.5px;
+        text-shadow: 0 12px 38px rgba(20, 24, 60, 0.22);
+      }
+
+      p {
+        margin: 10px 0 0;
+        font-weight: 500;
+        font-size: 15px;
+        opacity: 0.9;
+        max-width: 44ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .btn {
+        border: none;
+        cursor: pointer;
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-weight: 740;
+        font-size: 14px;
+        transition: transform var(--t) ease, filter var(--t) ease;
+        outline: none;
+      }
+
+      .btn:focus-visible {
+        outline: 2px solid rgba(34, 211, 238, 0.85);
+        outline-offset: 3px;
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #ffffff;
+        box-shadow: 0 16px 34px rgba(10, 12, 30, 0.28);
+      }
+
+      .btn.ghost {
+        background: rgba(255, 255, 255, 0.55);
+        color: rgba(10, 12, 30, 0.9);
+        border: 1px solid rgba(10, 12, 30, 0.12);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.02);
+      }
+
+      .tag {
+        max-width: 100%;
+        margin: 18px auto 0;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid rgba(10, 12, 30, 0.14);
+        font-size: 12px;
+        text-align: center;
+        opacity: 0.9;
+      }
+
+      .dark {
+        background: var(--bg-dark);
+        color: var(--text-dark);
+      }
+
+      .dark .wrap {
+        background: rgba(16, 18, 46, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+      }
+
+      .dark .btn.ghost {
+        background: rgba(255, 255, 255, 0.12);
+        color: rgba(244, 245, 255, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+      }
+
+      .dark .tag {
+        background: rgba(255, 255, 255, 0.10);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="wrap" id="app">
+      <section class="top">
+        <h1 id="headline">Hello, World!</h1>
+        <p id="subcopy">Glass effect</p>
+      </section>
+
+      <section class="actions" aria-label="Дії">
+        <button class="btn primary" id="toggleTheme" type="button">Enable Dark Theme</button>
+      </section>
+
+      <div class="tag" id="status">Status: ready to welcome 🙂</div>
+    </main>
+
+    <script>
+      const toggleTheme = document.getElementById("toggleTheme");
+      const spark = document.getElementById("spark");
+      const headline = document.getElementById("headline");
+      const status = document.getElementById("status");
+
+      function handleToggleTheme() {
+        document.body.classList.toggle("dark");
+        const isDark = document.body.classList.contains("dark");
+        toggleTheme.textContent = isDark ? "Увімкнути світлу тему" : "Увімкнути темну тему";
+        status.textContent = isDark ? "Статус: темна тема активна" : "Статус: світла тема активна";
+      }
+
+      toggleTheme.addEventListener("click", handleToggleTheme);
+      spark.addEventListener("click", handleSpark);
+    </script>
+  </body>
+</html>
